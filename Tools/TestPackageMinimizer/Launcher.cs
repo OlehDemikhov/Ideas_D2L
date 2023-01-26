@@ -18,7 +18,12 @@ namespace TestPackageMinimizer
             { ".bmp", "empty.bmp" },
             { ".png", "empty.png" },
             { ".mp4", "short.mp4" },
-            { ".pptx", "empty.pptx"}
+            { ".pptx", "empty.pptx"},
+            { ".mov", "empty.mov" },
+            { ".mp3", "empty.mp3" },
+            { ".xls", "empty.xls" },
+            { ".xlsx", "empty.xlsx" },
+            { ".zip", "empty.zip" },
         };
 
         public static void Main()
@@ -40,10 +45,12 @@ namespace TestPackageMinimizer
                 var fileToReplace = new FileInfo(fileName);
                 var emptyFile = new FileInfo(emptyFileName);
 
+                if( !fileToReplace.Exists )
+                    continue;
                 if (fileToReplace.Length == emptyFile.Length)
                     continue;
                 if (fileToReplace.Length < emptyFile.Length)
-                    throw new Exception("Luck: smaller file was found " + fileName);
+                    continue;
 
                 Console.WriteLine(fileName);
 
