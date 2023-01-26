@@ -2,59 +2,58 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace TestPackageMinimizer {
+namespace TestPackageMinimizer
+{
+    public class Launcher
+    {
+        private const string UnpackedDataDirectoryPath = @"C:\ForTools\_packages";
+        private const string TemplateFilesDirectoryPath = @"C:\ForTools\__Knowledge\_github\Ideas_D2L\Tools\TestPackageMinimizer\BlankFiles";
 
-	public class Launcher {
+        private static readonly Dictionary<string, string> ExtensionFileMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
+            { ".docx", "empty.docx" },
+            { ".doc", "empty.doc" },
+            { ".gif", "empty.gif" },
+            { ".jpg", "empty.jpg" },
+            { ".pdf", "empty.pdf" },
+            { ".bmp", "empty.bmp" },
+            { ".png", "empty.png" },
+            { ".mp4", "short.mp4"}
+        };
 
-		private const string UnpackedDataDirectoryPath = @"D:\_packages";
-		private const string TemplateFilesDirectoryPath = @"D:\__Knowledge\_github\Ideas_D2L\Tools\TestPackageMinimizer\BlankFiles";
+        public static void Main()
+        {
+            long size = 0;
 
-		private static readonly Dictionary<string, string> ExtensionFileMap = new Dictionary<string, string>( StringComparer.OrdinalIgnoreCase ) {
-			{ ".docx", "empty.docx" },
-			{ ".doc", "empty.doc" },
-			{ ".gif", "empty.gif" },
-			{ ".jpg", "empty.jpg" },
-			{ ".pdf", "empty.pdf" },
-			{ ".bmp", "empty.bmp" },
-			{ ".png", "empty.png" }
-		};
+            foreach (var fileName in Directory.EnumerateFileSystemEntries(UnpackedDataDirectoryPath, "*", SearchOption.AllDirectories))
+            {
+                var extension = Path.GetExtension(fileName);
 
-		public static void Main() {
+                if (extension == null)
+                    continue;
 
-			long size = 0;
+                string emptyFileName;
+                if (!ExtensionFileMap.TryGetValue(extension, out emptyFileName))
+                    continue;
+                emptyFileName = Path.Combine(TemplateFilesDirectoryPath, emptyFileName);
 
-			foreach( var fileName in Directory.EnumerateFileSystemEntries( UnpackedDataDirectoryPath, "*", SearchOption.AllDirectories ) ) {
+                var fileToReplace = new FileInfo(fileName);
+                var emptyFile = new FileInfo(emptyFileName);
 
-				var extension = Path.GetExtension( fileName );
+                if (fileToReplace.Length == emptyFile.Length)
+                    continue;
+                if (fileToReplace.Length < emptyFile.Length)
+                    throw new Exception("Luck: smaller file was found " + fileName);
 
-				if( extension == null )
-					continue;
+                Console.WriteLine(fileName);
 
-				string emptyFileName;
-				if( !ExtensionFileMap.TryGetValue( extension, out emptyFileName ) )
-					continue;
-				emptyFileName = Path.Combine( TemplateFilesDirectoryPath, emptyFileName );
+                size += fileToReplace.Length - emptyFile.Length;
 
-				var fileToReplace = new FileInfo( fileName );
-				var emptyFile = new FileInfo( emptyFileName );
+                fileToReplace.Delete();
+                emptyFile.CopyTo(fileName);
+            }
 
-				if( fileToReplace.Length == emptyFile.Length )
-					continue;
-				if( fileToReplace.Length < emptyFile.Length )
-					throw new Exception( "Luck: smaller file was found " + fileName );
-
-				Console.WriteLine( fileName );
-
-				size += fileToReplace.Length - emptyFile.Length;
-
-				fileToReplace.Delete();
-				emptyFile.CopyTo( fileName );
-			}
-
-			Console.WriteLine( "Saved bytes: " + size );
-			Console.ReadLine();
-		}
-
-
-	}
+            Console.WriteLine("Saved bytes: " + size);
+            Console.ReadLine();
+        }
+    }
 }
