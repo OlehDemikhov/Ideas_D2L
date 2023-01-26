@@ -17,7 +17,8 @@ namespace TestPackageMinimizer
             { ".pdf", "empty.pdf" },
             { ".bmp", "empty.bmp" },
             { ".png", "empty.png" },
-            { ".mp4", "short.mp4"}
+            { ".mp4", "short.mp4" },
+            { ".pptx", "empty.pptx"}
         };
 
         public static void Main()
