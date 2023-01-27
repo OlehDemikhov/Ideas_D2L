@@ -6,8 +6,8 @@ namespace TestPackageMinimizer
 {
     public class Launcher
     {
-        private const string UnpackedDataDirectoryPath = @"C:\ForTools\_packages";
-        private const string TemplateFilesDirectoryPath = @"C:\ForTools\__Knowledge\_github\Ideas_D2L\Tools\TestPackageMinimizer\BlankFiles";
+        private const string UnpackedDataDirectoryPath = @"C:\ForTools\packages";
+        private const string TemplateFilesDirectoryPath = @"C:\ForTools\BlankFiles";
 
         private static readonly Dictionary<string, string> ExtensionFileMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
             { ".docx", "empty.docx" },
@@ -47,9 +47,7 @@ namespace TestPackageMinimizer
 
                 if( !fileToReplace.Exists )
                     continue;
-                if (fileToReplace.Length == emptyFile.Length)
-                    continue;
-                if (fileToReplace.Length < emptyFile.Length)
+                if (fileToReplace.Length <= emptyFile.Length)
                     continue;
 
                 Console.WriteLine(fileName);
