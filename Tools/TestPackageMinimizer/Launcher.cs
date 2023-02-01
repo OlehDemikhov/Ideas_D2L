@@ -7,7 +7,8 @@ namespace TestPackageMinimizer
     public class Launcher
     {
         private const string UnpackedDataDirectoryPath = @"C:\ForTools\packages";
-        private const string TemplateFilesDirectoryPath = @"C:\ForTools\BlankFiles";
+        private const string TemplateFilesDirectoryPath = @"C:\ForTools\Config\BlankFiles";
+
 
         private static readonly Dictionary<string, string> ExtensionFileMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
             { ".docx", "empty.docx" },
@@ -30,6 +31,8 @@ namespace TestPackageMinimizer
         {
             long size = 0;
 
+            SakaiHelper.ProccesSakaiPackages(UnpackedDataDirectoryPath);
+
             foreach (var fileName in Directory.EnumerateFileSystemEntries(UnpackedDataDirectoryPath, "*", SearchOption.AllDirectories))
             {
                 var extension = Path.GetExtension(fileName);
@@ -45,7 +48,7 @@ namespace TestPackageMinimizer
                 var fileToReplace = new FileInfo(fileName);
                 var emptyFile = new FileInfo(emptyFileName);
 
-                if( !fileToReplace.Exists )
+                if (!fileToReplace.Exists)
                     continue;
                 if (fileToReplace.Length <= emptyFile.Length)
                     continue;
@@ -57,6 +60,9 @@ namespace TestPackageMinimizer
                 fileToReplace.Delete();
                 emptyFile.CopyTo(fileName);
             }
+
+            SakaiHelper.RemoveExtensionsSakaiPackages(UnpackedDataDirectoryPath);
+
 
             Console.WriteLine("Saved bytes: " + size);
             Console.ReadLine();
