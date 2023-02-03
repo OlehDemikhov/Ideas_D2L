@@ -92,7 +92,7 @@
     <None Include="BlankFiles\empty.pptx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="BlankFiles\empty.mov">
+    <None Include="BlankFiles\short.mov">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="BlankFiles\empty.mp3">
@@ -101,7 +101,7 @@
     <None Include="BlankFiles\empty.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="BlankFiles\empty.xlsx">
+    <None Include="BlankFiles\short.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="BlankFiles\empty.zip">
