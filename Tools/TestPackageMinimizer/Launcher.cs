@@ -20,10 +20,10 @@ namespace TestPackageMinimizer
             { ".png", "empty.png" },
             { ".mp4", "short.mp4" },
             { ".pptx", "empty.pptx"},
-            { ".mov", "empty.mov" },
-            { ".mp3", "empty.mp3" },
+            { ".mov", "short.mov" },
+            { ".mp3", "short.mp3" },
             { ".xls", "empty.xls" },
-            { ".xlsx", "empty.xlsx" },
+            { ".xlsx", "short.xlsx" },
             { ".zip", "empty.zip" },
         };
 
@@ -40,6 +40,10 @@ namespace TestPackageMinimizer
                 if (extension == null)
                     continue;
 
+                if(fileName.Contains( "IMSLP613328-PMLP558147" ) )
+                {
+                    var t = fileName+"jj";
+                }
                 string emptyFileName;
                 if (!ExtensionFileMap.TryGetValue(extension, out emptyFileName))
                     continue;

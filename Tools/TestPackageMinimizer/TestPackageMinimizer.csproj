@@ -95,7 +95,7 @@
     <None Include="BlankFiles\short.mov">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="BlankFiles\empty.mp3">
+    <None Include="BlankFiles\short.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="BlankFiles\empty.xls">
