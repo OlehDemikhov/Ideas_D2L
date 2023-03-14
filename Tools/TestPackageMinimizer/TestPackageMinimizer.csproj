@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Launcher.cs" />
+    <Compile Include="MoodleHelper.cs" />
     <Compile Include="SakaiHelper.cs" />
     <Compile Include="XDocumentLoader.cs" />
   </ItemGroup>

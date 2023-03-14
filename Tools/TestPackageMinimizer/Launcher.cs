@@ -32,6 +32,7 @@ namespace TestPackageMinimizer
             long size = 0;
 
             SakaiHelper.ProccesSakaiPackages(UnpackedDataDirectoryPath);
+            MoodleHelper.ProccesMoodlePackages(UnpackedDataDirectoryPath);
 
             foreach (var fileName in Directory.EnumerateFileSystemEntries(UnpackedDataDirectoryPath, "*", SearchOption.AllDirectories))
             {
@@ -40,10 +41,6 @@ namespace TestPackageMinimizer
                 if (extension == null)
                     continue;
 
-                if(fileName.Contains( "IMSLP613328-PMLP558147" ) )
-                {
-                    var t = fileName+"jj";
-                }
                 string emptyFileName;
                 if (!ExtensionFileMap.TryGetValue(extension, out emptyFileName))
                     continue;
@@ -54,8 +51,8 @@ namespace TestPackageMinimizer
 
                 if (!fileToReplace.Exists)
                     continue;
-                if (fileToReplace.Length <= emptyFile.Length)
-                    continue;
+                //if (fileToReplace.Length <= emptyFile.Length)
+                //    continue;
 
                 Console.WriteLine(fileName);
 
@@ -66,7 +63,7 @@ namespace TestPackageMinimizer
             }
 
             SakaiHelper.RemoveExtensionsSakaiPackages(UnpackedDataDirectoryPath);
-
+            MoodleHelper.RemoveExtensionsMoodlePackages(UnpackedDataDirectoryPath);
 
             Console.WriteLine("Saved bytes: " + size);
             Console.ReadLine();
