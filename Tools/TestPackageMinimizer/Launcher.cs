@@ -7,7 +7,7 @@ namespace TestPackageMinimizer
     public class Launcher
     {
         private const string UnpackedDataDirectoryPath = @"C:\ForTools\packages";
-        private const string TemplateFilesDirectoryPath = @"C:\ForTools\Config\BlankFiles";
+        private const string TemplateFilesDirectoryPath = @"C:\Users\lkhimiak\source\repos\Ideas_D2L\Tools\TestPackageMinimizer\BlankFiles";
 
 
         private static readonly Dictionary<string, string> ExtensionFileMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
