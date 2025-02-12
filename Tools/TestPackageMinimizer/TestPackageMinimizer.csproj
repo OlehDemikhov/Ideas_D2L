@@ -107,6 +107,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="System.Collections.Immutable">
+      <Version>9.0.2</Version>
+    </PackageReference>
     <PackageReference Include="System.IO.Abstractions">
       <Version>19.1.14</Version>
     </PackageReference>

@@ -23,22 +23,7 @@ namespace TestPackageMinimizer
                     continue;
                 }
 
-                foreach (XElement fileElement in GetFileElements(contentXDoc))
-                {
-
-                    string id = fileElement.Attribute("id").Value;
-                    string bodyLocation = fileElement.Attribute("body-location").Value;
-
-                    string extension = Path.GetExtension(id);
-                    if (!string.IsNullOrEmpty(extension))
-                    {
-                        var sourceFile = Path.Combine(folderPath, bodyLocation);
-                        if (File.Exists(sourceFile))
-                        {
-                            File.Move(sourceFile, sourceFile + extension);
-                        }
-                    }
-                }
+                MoveFiles(folderPath, contentXDoc);
             }
         }
 
@@ -74,6 +59,26 @@ namespace TestPackageMinimizer
                 }
             }
         }
+
+        private static void MoveFiles( string folderPath, XDocument contentXDoc )
+        {
+            foreach(XElement fileElement in GetFileElements( contentXDoc ))
+            {
+
+                string id = fileElement.Attribute( "id" ).Value;
+                string bodyLocation = fileElement.Attribute( "body-location" ).Value;
+
+                string extension = Path.GetExtension( id );
+                if(!string.IsNullOrEmpty( extension ))
+                {
+                    var sourceFile = Path.Combine( folderPath, bodyLocation );
+                    if(File.Exists( sourceFile ))
+                    {
+                        File.Move( sourceFile, sourceFile + extension );
+                    }
+                }
+            }
+        } 
 
         private static IEnumerable<XElement> GetFileElements(XDocument xDoc) => xDoc.Descendants("resource");
     }
