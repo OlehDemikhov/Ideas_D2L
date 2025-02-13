@@ -40,9 +40,15 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleHelper.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="FileReplacer.cs" />
     <Compile Include="Launcher.cs" />
-    <Compile Include="MoodleHelper.cs" />
-    <Compile Include="SakaiHelper.cs" />
+    <Compile Include="VendorHelpers\Common.cs" />
+    <Compile Include="VendorHelpers\MoodleHelper.cs" />
+    <Compile Include="PackageProccesor.cs" />
+    <Compile Include="VendorHelpers\SakaiHelper.cs" />
+    <Compile Include="VendorDefiner.cs" />
     <Compile Include="XDocumentLoader.cs" />
   </ItemGroup>
   <ItemGroup>

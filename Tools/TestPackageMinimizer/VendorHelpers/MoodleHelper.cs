@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.IO.Abstractions;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using TestPackageMinimizer.VendorHelpers;
 
 namespace TestPackageMinimizer
 {
@@ -16,12 +16,8 @@ namespace TestPackageMinimizer
 
             foreach (var folder in Directory.EnumerateFileSystemEntries(unpackedDataDirectoryPath, "*", SearchOption.TopDirectoryOnly))
             {
-                string folderPath = Path.Combine(unpackedDataDirectoryPath, folder);
-                string contentDocPath = Path.Combine(folderPath, СontentFile);
 
-                XDocumentLoader s = new XDocumentLoader(new FileSystem());
-
-                if (!s.TryLoadFile(contentDocPath, out XDocument contentXDoc))
+                if (!Common.TryLoadFile( unpackedDataDirectoryPath, folder, СontentFile, out string folderPath, out XDocument contentXDoc))
                 {
                     continue;
                 }
@@ -38,11 +34,7 @@ namespace TestPackageMinimizer
                     {
                         string contenthash = fileElement.Element("contenthash").Value;
                         var sourceFile = filesWithoutExtension.FirstOrDefault(x => x.Contains(contenthash));
-
-                        if (File.Exists(sourceFile))
-                        {
-                            File.Move(sourceFile, sourceFile + extension);
-                        }
+                        Common.MoveFile( sourceFile, sourceFile + extension );
                     }
                 }
             }
@@ -52,12 +44,7 @@ namespace TestPackageMinimizer
         {
             foreach (var folder in Directory.EnumerateFileSystemEntries(unpackedDataDirectoryPath, "*", SearchOption.TopDirectoryOnly))
             {
-                string folderPath = Path.Combine(unpackedDataDirectoryPath, folder);
-                string contentDocPath = Path.Combine(folderPath, СontentFile);
-
-                XDocumentLoader xDocumentLoader = new XDocumentLoader(new FileSystem());
-
-                if (!xDocumentLoader.TryLoadFile(contentDocPath, out XDocument contentXDoc))
+                if(!Common.TryLoadFile( unpackedDataDirectoryPath, folder, СontentFile, out string folderPath, out XDocument contentXDoc ))
                 {
                     continue;
                 }
@@ -76,10 +63,7 @@ namespace TestPackageMinimizer
 
                         string sourceFileWithoutExtension = sourceFile.Replace(extension, "");
 
-                        if (File.Exists(sourceFile))
-                        {
-                            File.Move(sourceFile, sourceFileWithoutExtension);
-                        }
+                        Common.MoveFile( sourceFile, sourceFileWithoutExtension );
                     }
                 }
             }
