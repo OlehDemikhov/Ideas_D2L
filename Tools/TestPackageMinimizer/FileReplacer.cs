@@ -5,18 +5,24 @@ namespace TestPackageMinimizer
 {
     internal static class FileReplacer
     {
-        public static void ReplaceFiles()
+        public static void ReplaceFiles( string folder )
         {
-            long size = 0;
-            foreach(var fileName in Directory.EnumerateFileSystemEntries( Constants.UnpackedDataDirectoryPath, "*", SearchOption.AllDirectories ))
+            long bytes = 0;
+            foreach(var fileName in Directory.EnumerateFileSystemEntries( folder, "*", SearchOption.AllDirectories ))
             {
                 var extension = Path.GetExtension( fileName );
 
                 if(extension == null)
                     continue;
 
-                if(!Constants.ExtensionFileMap.TryGetValue( extension, out string emptyFileName ))
+                if(!Constants.ExtensionFileMap.TryGetValue( extension, out string emptyFileName )) {
+                    if(!extension.Contains("xml") || !extension.Contains( "html") || !extension.Contains( "htm") || !Path.HasExtension( fileName ))
+                    {
+                        ConsoleHelper.WriteLineWithColor( "Undefined file extention " + extension, ConsoleColor.Red );
+                    }
+                    
                     continue;
+                }
                 emptyFileName = Path.Combine( Constants.TemplateFilesDirectoryPath, emptyFileName );
 
                 var fileToReplace = new FileInfo( fileName );
@@ -25,16 +31,15 @@ namespace TestPackageMinimizer
                 if(!fileToReplace.Exists)
                     continue;
 
-                Console.WriteLine( fileName );
+                Console.WriteLine(" File \"" + fileName + "\" replaced with empty" );
 
-                size += fileToReplace.Length - emptyFile.Length;
+                bytes += fileToReplace.Length - emptyFile.Length;
 
                 fileToReplace.Delete();
                 emptyFile.CopyTo( fileName );
             }
-            ConsoleHelper.WriteLineWithColor( "Saved bytes: " + size, ConsoleColor.Blue );
-            ConsoleHelper.WriteLineWithColor( "Please, press any key to continue", ConsoleColor.DarkGray );
-            Console.ReadLine();
+            double megabytes = bytes / (1024.0 * 1024.0);
+            ConsoleHelper.WriteLineWithColor( "\nSaved MBs: " + megabytes.ToString("N2"), ConsoleColor.Blue );
         }
     }
 }

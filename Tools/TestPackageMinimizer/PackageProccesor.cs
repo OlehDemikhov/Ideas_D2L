@@ -11,24 +11,25 @@ namespace TestPackageMinimizer
             {
                 case Vendors.Sakai:
                     {
-                        ConsoleHelper.WriteLineWithColor( "Minimization of the package for Sakai vendor", ConsoleColor.Blue );
+                        ConsoleHelper.WriteLineWithColor( "Minimization of the package for Sakai vendor: \n", ConsoleColor.Blue );
                         SakaiHelper.ProccesSakaiPackages( Constants.UnpackedDataDirectoryPath );
-                        FileReplacer.ReplaceFiles();
+                        FileReplacer.ReplaceFiles( folder );
                         SakaiHelper.RemoveExtensionsSakaiPackages( Constants.UnpackedDataDirectoryPath );
                         break;
                     }
                 case Vendors.Moodle:
                     {
-                        ConsoleHelper.WriteLineWithColor( "Minimization of the package for Moodle vendor", ConsoleColor.Blue );
+                        ConsoleHelper.WriteLineWithColor( "Minimization of the package for Moodle vendor: \n", ConsoleColor.Blue );
+                        Console.Write( "Folder name: " + folder );
                         MoodleHelper.ProccesMoodlePackages( Constants.UnpackedDataDirectoryPath );
-                        FileReplacer.ReplaceFiles();
+                        FileReplacer.ReplaceFiles( Constants.UnpackedDataDirectoryPath );
                         MoodleHelper.RemoveExtensionsMoodlePackages( Constants.UnpackedDataDirectoryPath );
                         break;
                     }
                 case Vendors.Other:
                     {
-                        ConsoleHelper.WriteLineWithColor( "Minimization of the package for undefined vendor", ConsoleColor.Blue );
-                        FileReplacer.ReplaceFiles();
+                        ConsoleHelper.WriteLineWithColor( "Minimization of the package for undefined vendor: \n", ConsoleColor.Blue );
+                        FileReplacer.ReplaceFiles( folder );
                         break;
                     }
                 default:

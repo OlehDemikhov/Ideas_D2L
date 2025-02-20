@@ -72,7 +72,7 @@
     <Content Include="BlankFiles\empty.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BlankFiles\short.mp4">
+    <Content Include="BlankFiles\empty.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -93,16 +93,16 @@
     <None Include="BlankFiles\empty.pptx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="BlankFiles\short.mov">
+    <None Include="BlankFiles\empty.mov">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="BlankFiles\short.mp3">
+    <None Include="BlankFiles\empty.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="BlankFiles\empty.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="BlankFiles\short.xlsx">
+    <None Include="BlankFiles\empty.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="BlankFiles\empty.zip">

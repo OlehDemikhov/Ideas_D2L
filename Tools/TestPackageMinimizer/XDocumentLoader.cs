@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Immutable;
+using System.IO;
 using System.IO.Abstractions;
 using System.Xml.Linq;
 
@@ -43,7 +44,9 @@ namespace TestPackageMinimizer
                 using(StreamReader reader = new StreamReader( stream ))
                 {
                     string xml = reader.ReadToEnd();
-
+                    foreach(var t in Replacements ) {
+                        xml = xml.Replace( t.Item1, t.Item2 );
+                    }
                     document = XDocument.Parse( xml );
 
                     result = true;
@@ -52,5 +55,14 @@ namespace TestPackageMinimizer
 
             return result;
         }
+
+        private static readonly ImmutableArray<(string, string)> Replacements = ImmutableArray.Create(
+            ("dt:dt", "dt"),
+            ("sakai:", string.Empty),
+            ("<CHEF:", "<"),
+            ("</CHEF:", "</"),
+            ("<DAV:", "<"),
+            ("</DAV:", "</")
+        );
     }
 }

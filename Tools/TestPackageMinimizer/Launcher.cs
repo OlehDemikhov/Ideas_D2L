@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 
 namespace TestPackageMinimizer
@@ -10,8 +11,9 @@ namespace TestPackageMinimizer
             foreach(var folder in Directory.EnumerateFileSystemEntries( Constants.UnpackedDataDirectoryPath, "*", SearchOption.TopDirectoryOnly ))
             {
                 PackageProccesor.ProccesPackage( folder );
-
             }
+            ConsoleHelper.WriteLineWithColor( "Please, press any key to continue", ConsoleColor.DarkGray );
+            Console.ReadLine();
         }
     }
 }
